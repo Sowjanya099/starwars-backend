@@ -1,5 +1,6 @@
 const { ApolloServer } = require('apollo-server');
 const { Neo4jGraphQL } = require('@neo4j/graphql');
+require('dotenv').config();
 const neo4j = require('neo4j-driver');
 
 const typeDefs = `
@@ -39,8 +40,8 @@ const typeDefs = `
 `;
 
 const driver = neo4j.driver(
-  'neo4j+s://283b6c93.databases.neo4j.io',
-  neo4j.auth.basic('neo4j', '08ZrWqMpsEe5xQwQmNzTMJIN01irmnv9NVZfdz7-jrU')
+  process.env.NEO4J_URI,
+  neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD)
 );
 
 const resolvers = {
